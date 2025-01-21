@@ -17,8 +17,8 @@ COPY . .
 RUN npx ng version
 RUN cat angular.json
 
-# Construire l'application Angular (avec débogage détaillé)
-RUN npm run build --configuration production || (echo "La construction a échoué"; tail -n 50 /app/dist/sunu-pointage-front/*.log; exit 1)
+# Construire l'application Angular (en spécifiant correctement le projet et la configuration)
+RUN npm run build -- --configuration production
 
 # Étape 2 : Configurer un serveur pour servir l'application
 FROM nginx:alpine
