@@ -13,9 +13,12 @@ RUN npm install
 # Copier le reste des fichiers du projet
 COPY . .
 
-# Construire l'application Angular (notez la commande corrigée)
-# Ajout d'une commande pour afficher le contenu de `angular.json` en cas d'échec
-RUN npm run build --configuration production || (cat angular.json && exit 1)
+# Vérifier la version d'Angular CLI et le contenu de angular.json pour le débogage
+RUN npx ng version
+RUN cat angular.json
+
+# Construire l'application Angular (avec débogage détaillé)
+RUN npm run build --configuration production || (echo "La construction a échoué"; tail -n 50 /app/dist/sunu-pointage-front/*.log; exit 1)
 
 # Étape 2 : Configurer un serveur pour servir l'application
 FROM nginx:alpine
