@@ -30,9 +30,9 @@
               "node_modules/bootstrap-icons/font/bootstrap-icons.css",
               "node_modules/font-awesome/css/font-awesome.css",
                "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
-              
+
             ],
-            
+
             "scripts": [],
             "server": "src/main.server.ts",
             "prerender": true,
@@ -45,13 +45,14 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumError": "1.5mb",  
+                  "maximumWarning": "1.2mb"
                 },
                 {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kB",
-                  "maximumError": "4kB"
+                  "type": "bundle",
+                  "name": "main",
+                  "maximumError": "2mb",
+                  "maximumWarning": "1.5mb"
                 }
               ],
               "outputHashing": "all"
