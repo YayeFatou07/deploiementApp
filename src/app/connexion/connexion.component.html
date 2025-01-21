@@ -1,0 +1,64 @@
+<div class="login-container">
+
+  <!-- Connexion par email et mot de passe -->
+  <div class="container">
+    <div class="left" style="background-image: url('assets/connexion.png'); background-size: cover; background-position: center;">
+      <h1 style="color: white; font-size: 20px;">Votre système automatique pour la gestion de présences sécurisé et fiable</h1>
+    </div>
+    
+    <div class="right">
+      <div class="logo">
+        <img src="assets/image.png" alt="Logo" />
+        <h2>Connexion</h2>
+      </div>
+    
+      <!-- Affichage des messages d'erreur généraux -->
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+    
+      <form (ngSubmit)="loginWithEmail()">
+        <label for="email">Email*</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="Entrez votre email"
+          required
+          [(ngModel)]="email"
+          name="email"
+          (input)="validateEmail()"
+        />
+        <!-- Message d'erreur pour l'email -->
+        <div *ngIf="!isValidEmail" class="error-message">
+          L'email que vous avez saisi est invalide.
+        </div>
+    
+        <label for="password">Mot de passe*</label>
+        <div class="password-wrapper">
+          <input
+            type="{{ isPasswordVisible ? 'text' : 'password' }}"
+            id="password"
+            placeholder="Entrez votre mot de passe"
+            required
+            [(ngModel)]="password"
+            name="password"
+            />
+          <span class="toggle-password" (click)="togglePasswordVisibility()">👁</span>
+        </div>
+        <!-- Message d'erreur pour le mot de passe -->
+        <div *ngIf="password.length < 8 && password.length > 0 " class="error-message">
+          Le mot de passe doit contenir au moins 8 caractères.
+        </div>
+    
+        <a href="/forgot-password">Mot de passe oublié</a>
+        <button type="submit" class="button" [disabled]="!isValidEmail || password.length < 8">Se connecter</button>
+      </form>
+
+      <div class="rfid-section" style="margin-top: 20px;">
+        <p>Scannez votre carte RFID pour vous connecter.</p>
+        <div *ngIf="rfidErrorMessage" class="error-message">
+          {{ rfidErrorMessage }}
+        </div>
+    </div>
+  </div>
+</div>

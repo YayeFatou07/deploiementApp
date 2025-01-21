@@ -1,0 +1,69 @@
+<div class="layout">
+    <!-- Barre latérale -->
+    <app-sidebar></app-sidebar>
+  
+    <!-- Contenu principal -->
+    <div class="content">
+      <!-- Barre supérieure -->
+      <div class="top-bar">
+        <input type="text" placeholder="Rechercher..." class="search-bar" />
+        <div class="actions">
+          <label for="file-upload" class="upload-btn">
+            <i class="bi bi-upload"></i> Uploader un fichier CSV
+          </label>
+          <input
+            type="file"
+            id="file-upload"
+            (change)="onFileUpload($event)"
+            hidden
+            accept=".csv, .txt" required
+          />
+          <button class="add-btn">
+            <i class="bi bi-plus-circle"></i>
+            <a [routerLink]="['/ajouter', 'departement']" style="text-decoration: none; color: inherit;">
+              Ajouter un departement
+            </a>
+          
+          </button>
+        </div>
+      </div>
+  
+      <!-- Tableau des apprenants -->
+      <div class="table-container">
+        <h2>Liste des departements</h2>
+        <table class="learners-table">
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>departement</th>
+              <th>Description</th>
+              <th>Membres</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let departement of paginatedPointages; let i = index; ">
+              <td (click)="onItemClick(departement)">{{ i + 1 }}</td>
+              <td (click)="onItemClick(departement)" >{{ departement.nom }}</td>
+              <td (click)="onItemClick(departement)"></td>
+              <td (click)="onItemClick(departement)">{{ departmentCounts[departement._id] || 0}} membre(s)</td>
+              <td>
+                <a [routerLink]="['/modifier-autre', 'departement', departement._id]" style="text-decoration: none; color: inherit;">
+                    <i class="bi bi-pencil edit-icon"></i>
+                  </a>
+                  <i class="bi bi-trash delete-icon" (click)="deleteDepartement(departement._id)"></i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
+      <!-- Pagination -->
+      <div class="pagination-controls">
+        <button (click)="previousPage()" [disabled]="currentPage === 1">Précédent</button>
+        <span>Page {{ currentPage }} sur {{ totalPages() }}</span>
+        <button (click)="nextPage()" [disabled]="currentPage === totalPages()">Suivant</button>
+      </div>
+    </div>
+  </div>
+  

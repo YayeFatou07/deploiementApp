@@ -1,0 +1,49 @@
+<div class="layout">
+    <app-sidebar></app-sidebar>
+  
+    <div class="container">
+      <h2>Listes de pointages</h2>
+  
+      <div class="search-bar">
+        <input 
+          type="text" 
+          placeholder="Quick Search..." 
+          [(ngModel)]="searchQuery" 
+        />
+      
+      </div>
+  
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Matricule</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Date</th>
+            <th>Check-In</th>
+            <th>Check-Out</th>
+            <th>Etat</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pointage of paginatedPointages ">
+
+            <td>{{ pointage.user_id.matricule }}</td>
+            <td>{{ pointage.user_id.nom }}</td>
+            <td>{{ pointage.user_id.prenom }}</td>
+            <td>{{ pointage.date | date:'shortDate' }}</td>
+            <td>{{ pointage.checkin | date:'shortTime' }}</td>
+            <td>{{ pointage.checkout | date:'shortTime' }}</td>
+            <td *ngIf="pointage.etat == 'à l\'heure'">{{ pointage.etat }}</td>
+          </tr>
+        </tbody>
+      </table>
+  
+      <div class="pagination-controls">
+        <button (click)="previousPage()" [disabled]="currentPage === 1">Précédent</button>
+        <span>Page {{ currentPage }} sur {{ totalPages() }}</span>
+        <button (click)="nextPage()" [disabled]="currentPage === totalPages()">Suivant</button>
+      </div>
+    </div>
+  </div>
+  
