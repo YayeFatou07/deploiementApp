@@ -15,6 +15,8 @@ COPY . .
 
 # Construire l'application Angular (notez la correction de la commande)
 RUN npm run build --configuration production
+RUN npm run build --configuration production || cat /app/angular.json
+
 
 # Étape 2 : Configurer un serveur pour servir l'application
 FROM nginx:alpine
